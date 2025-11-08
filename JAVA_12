@@ -1,0 +1,42 @@
+public class Transport {
+
+    public float speed;
+    public int weight;
+    public String color;
+    public byte[] coordinates;
+
+    public void setValues(float _speed, int _weight, String _color, byte[] _coordinates){
+        speed = _speed;
+        weight = _weight;
+        color = _color;
+        coordinates = _coordinates;
+    }
+
+    public String getValues(){
+        String info = "Object speed: "+ speed +".Weight: " + weight + ". Color: " + color + "\n";
+
+        String infoCoordinates = "Coordinates:\n";
+        for(byte el: coordinates)
+            infoCoordinates += el + "\n";
+
+        return info + infoCoordinates;
+    }
+}
+
+
+class Main {
+
+    public static void main(String[] args) {
+        Transport bmw = new Transport();
+        bmw.setValues(200.5f, 2000, "Black", new byte[]{0, 0, 0});
+
+        Transport truck = new Transport();
+        truck.speed = 130f;
+        truck.weight = 5000;
+        truck.color = "White";
+        truck.coordinates = new byte[]{0, 100, 0};
+
+        System.out.println(bmw.getValues());
+        System.out.println(truck.getValues());
+    }
+}
