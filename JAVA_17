@@ -1,0 +1,172 @@
+public abstract class Transport {
+
+    protected float speed;
+    protected int weight;
+    protected String color;
+    protected byte[] coordinates;
+    public Engine engine = new Engine();
+
+    class Engine {
+
+        private boolean isReady;
+        private int km;
+
+        public void setValues(boolean isReady, int km) {
+            this.isReady = isReady;
+            this.km = km;
+        }
+
+        public void IsReady(boolean isReady) {
+            this.isReady = isReady;
+        }
+
+        public void info() {
+            if (isReady)
+                System.out.println("Engine is good");
+            else
+                System.out.println("Engine is damaged. He has already driven " + km + " km. ");
+        }
+
+    }
+
+    public Transport() {}
+
+    public Transport(float _speed, int _weight, String _color, byte[] _coordinates) {
+        // System.out.println("Object is created");
+        setValues(_speed, _weight, _color, _coordinates);
+        System.out.println(getValues());
+    }
+
+    public Transport(float speed, int weight, String color) {
+        this.speed = speed;
+        this.weight = weight;
+        this.color = color;
+        this.coordinates = new byte[0];
+    }
+
+    public void setValues(float _speed, int _weight, String _color, byte[] _coordinates){
+        speed = _speed;
+        weight = _weight;
+        color = _color;
+        coordinates = _coordinates;
+    }
+
+    public String getValues() {
+        String info = "Object speed: "+ speed +".Weight: " + weight + ". Color: " + color + "\n";
+
+        if(coordinates.length > 0) {
+            String infoCoordinates = "Coordinates:\n";
+            for (byte el : coordinates)
+                infoCoordinates += el + "\n";
+
+            return info + infoCoordinates;
+        }
+
+        return info;
+    }
+
+    public abstract void moveObject();
+    public abstract void stopObject();
+
+}
+
+
+
+
+ublic class Car extends Transport {
+    @Override
+    public void moveObject() {
+        System.out.println("Object is moving");
+    }
+
+    @Override
+    public void stopObject() {
+        System.out.println("Object stopped");
+    }
+
+    public Car(float _speed, int _weight, String _color, byte[] _coordinates) {
+        setValues(_speed, _weight, _color, _coordinates);
+        System.out.println(getValues());
+    }
+
+}
+
+
+
+
+public class Truck extends Transport {
+
+    private boolean isLoaded;
+
+    public Truck(float speed, int weight, String color, boolean isLoaded) {
+        super(speed, weight, color);
+        this.isLoaded = isLoaded;
+    }
+
+    public void setValues(float speed, int weight, String color, byte[] coordinates, boolean isLoaded) {
+        super.speed = speed;
+        super.weight = weight;
+        super.color = color;
+        super.coordinates = coordinates;
+        this.isLoaded = isLoaded;
+    }
+
+    @Override
+    public String getValues() {
+        String info = super.getValues();
+        return info + "\n" + getLoaded();
+    }
+
+    public void setLoaded(boolean isLoaded) {
+        this.isLoaded = isLoaded;
+    }
+
+    public String getLoaded(){
+        if(isLoaded)
+            return "Truck is loaded";
+        else
+            return "Truck is NOT loaded";
+    }
+
+    @Override
+    public void moveObject() {
+        System.out.println("Object is moving");
+    }
+
+    @Override
+    public void stopObject() {
+        System.out.println("Object stopped");
+    }
+
+}
+
+
+
+
+class Main {
+
+    public Main() {}
+
+    public static void main(String[] args) {
+        Car bmw = new Car(200.5f, 2000, "Black", new byte[]{0, 0, 0});
+        bmw.engine.setValues(false, 200);
+        bmw.engine.info();
+
+        Truck truck = new Truck(130f, 5000, "White", true);
+        truck.engine.setValues(true, 1);
+        truck.engine.info();
+
+        Car flyCar = new Car(200.5f, 2000, "White", new byte[]{0, 10, 0}) {
+            @Override
+            public String getValues() {
+                return "Fly Car";
+            }
+
+            @Override
+            public void moveObject() {
+                System.out.println("Object is flying");
+            }
+        };
+        flyCar.moveObject();
+    }
+}
