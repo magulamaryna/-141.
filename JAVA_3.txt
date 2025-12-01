@@ -1,0 +1,98 @@
+public class Transport {
+
+    private float speed;
+    private int weight;
+    private String color;
+    private byte[] coordinates;
+
+    public Transport() {}
+
+    public Transport(float _speed, int _weight, String _color, byte[] _coordinates) {
+        // System.out.println("Object is created");
+        setValues(_speed, _weight, _color, _coordinates);
+        System.out.println(getValues());
+    }
+
+    public Transport(float speed, int weight, String color) {
+        this.speed = speed;
+        this.weight = weight;
+        this.color = color;
+        this.coordinates = new byte[0];
+    }
+
+    public void setValues(float _speed, int _weight, String _color, byte[] _coordinates){
+        speed = _speed;
+        weight = _weight;
+        color = _color;
+        coordinates = _coordinates;
+    }
+
+    public String getValues() {
+        String info = "Object speed: "+ speed +".Weight: " + weight + ". Color: " + color + "\n";
+
+        if(coordinates.length > 0) {
+            String infoCoordinates = "Coordinates:\n";
+            for (byte el : coordinates)
+                infoCoordinates += el + "\n";
+
+            return info + infoCoordinates;
+        }
+
+        return info;
+    }
+}
+
+
+
+
+public class Car extends Transport {
+
+    public Car(float _speed, int _weight, String _color, byte[] _coordinates) {
+        setValues(_speed, _weight, _color, _coordinates);
+        System.out.println(getValues());
+    }
+
+}
+
+
+
+
+public class Truck extends Transport {
+
+    private boolean isLoaded;
+
+    public Truck(float speed, int weight, String color, boolean isLoaded) {
+        super(speed, weight, color);
+        this.isLoaded = isLoaded;
+        System.out.println(super.getValues());
+    }
+
+    public void setLoaded(boolean isLoaded) {
+        this.isLoaded = isLoaded;
+    }
+
+    public void getLoaded(){
+        if(isLoaded)
+            System.out.println("Truck is loaded");
+        else
+            System.out.println("Truck is NOT loaded");
+    }
+
+}
+
+
+
+
+class Main {
+
+    public Main() {}
+
+    public static void main(String[] args) {
+        Car bmw = new Car(200.5f, 2000, "Black", new byte[]{0, 0, 0});
+
+        Truck truck = new Truck(130f, 5000, "White", true);
+        truck.getLoaded();
+        truck.setLoaded(false);
+        truck.getLoaded();
+    }
+}
