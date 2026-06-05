@@ -1,0 +1,16 @@
+package PR_14;
+
+import javax.swing.SwingUtilities;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        SwingUtilities.invokeLater(() -> {
+
+            LoginWindow window = new LoginWindow();
+            window.setVisible(true);
+
+        });
+    }
+}
